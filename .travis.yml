@@ -25,8 +25,8 @@ after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - export REPO=parking-api
   - export VERSION=`xml2 < pom.xml  | grep /project/version= | sed 's/.*=//'`
-  - test "$TRAVIS_BRANCH" == 'master' && (docker tag $REPO gustajz/$REPO; docker tag $REPO gustajz/$REPO:$VERSION; docker push gustajz/$REPO:latest; docker push gustajz/$REPO:$VERSION)
-  - test "$TRAVIS_BRANCH" == 'develop' && (docker tag $REPO gustajz/$REPO:snapshot; docker push gustajz/$REPO:snapshot)
+  - test "$TRAVIS_BRANCH" == 'master' && (docker tag $REPO $DOCKER_REPOSITORY/$REPO; docker tag $REPO $DOCKER_REPOSITORY/$REPO:$VERSION; docker push $DOCKER_REPOSITORY/$REPO:latest; docker push $DOCKER_REPOSITORY/$REPO:$VERSION)
+  - test "$TRAVIS_BRANCH" == 'develop' && (docker tag $REPO $DOCKER_REPOSITORY/$REPO:snapshot; docker push $DOCKER_REPOSITORY/$REPO:snapshot)
 
 cache:
   directories:

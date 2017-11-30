@@ -1,10 +1,12 @@
-[![Build Status](https://travis-ci.org/gustajz/parking-api.svg?branch=master)](https://travis-ci.org/gustajz/parking-api) [![](https://images.microbadger.com/badges/image/gustajz/parking-api.svg)](https://microbadger.com/images/gustajz/parking-api) [![Project Stats](https://www.openhub.net/p/parking-api/widgets/project_thin_badge.gif)](https://www.openhub.net/p/parking-api)
+[![Build Status](https://travis-ci.org/generic-parking/parking-api.svg?branch=master)](https://travis-ci.org/generic-parking/parking-api) 
+[![](https://images.microbadger.com/badges/image/genericparking/parking-api.svg)](https://microbadger.com/images/genericparking/parking-api) 
+[![Project Stats](https://www.openhub.net/p/parking-api/widgets/project_thin_badge.gif)](https://www.openhub.net/p/parking-api)
 
 # parking-api
 
 API REST para auto-gerenciamento de estacionamento corporativo, onde cada espaço é muito bem aproveitado.
 
-O Web App para esta aplicação está em [parking-app](https://github.com/AlexandreSNeto/parking-app/).
+O Web App para esta aplicação está em [parking-app](https://github.com/generic-parking/parking-app).
 
 ### Pré-requisitos
 
@@ -23,7 +25,7 @@ O Web App para esta aplicação está em [parking-app](https://github.com/Alexan
 
 ### Execução em modo desenvolvimento
 
-    $ docker run -it --rm=true --name parking-api-ui --link postgres:db -p 8080:8080 gustajz/parking-api \
+    $ docker run -it --rm=true --name parking-api-ui --link postgres:db -p 8080:8080 genericparking/parking-api \
        --ldap.url=ldap://myad.mydomain.local --ldap.domain=mydomain.local --ldap.login_form=true \
        --spring.profiles.active=development,postgresql \
        --spring.datasource.url=jdbc:postgresql://db:5432/parking
@@ -32,13 +34,13 @@ O Web App para esta aplicação está em [parking-app](https://github.com/Alexan
 
     $ docker run -d --name parking-api -p 8080:8080 \
         -e DB_URL=jdbc:oracle:thin:@db.mydomain.local:1521:XE -e DB_PASS=mypassword \
-        -e LDAP_URL=ldap://myad.mydomain.local -e LDAP_DOMAIN=mydomain.local gustajz/parking-api
+        -e LDAP_URL=ldap://myad.mydomain.local -e LDAP_DOMAIN=mydomain.local genericparking/parking-api
         
 ### Execução em produção com PostgreSQL
 
     $ docker run -d --name parking-api -p 8080:8080 \
         -e DB_URL=jdbc:postgresql://db.mydomain.local:5432/parking -e DB_PASS=mypassword \
-        -e LDAP_URL=ldap://myad.mydomain.local -e LDAP_DOMAIN=mydomain.local gustajz/parking-api \
+        -e LDAP_URL=ldap://myad.mydomain.local -e LDAP_DOMAIN=mydomain.local genericparking/parking-api \
         --spring.profiles.active=postgresql
         
 ### Documentação
