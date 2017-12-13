@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
@@ -84,6 +85,11 @@ public class Proprietario extends AbstractEntity implements Serializable {
 	private String cidade;
 	
 	private String bairro;
+
+	private boolean ofereceCarona;
+
+	@ManyToOne
+	private Proprietario proprietarioGrupo;
 
 	@PrePersist
 	public void before() {

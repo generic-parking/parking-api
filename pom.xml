@@ -39,7 +39,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <scope>provided</scope><!-- Somente para DSV -->
+            <optional>true</optional><!-- Somente para DSV -->
         </dependency>
 
         <!-- Security -->
