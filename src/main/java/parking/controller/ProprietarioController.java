@@ -48,6 +48,8 @@ public class ProprietarioController {
 			Proprietario grupoDb = proprietarioRepository.findOne(grupo.getId());
 			proprietario.setProprietarioGrupo(grupoDb);
 		}
+		
+		// TODO Validar regra de participação de sorteio e grupo
 
 		proprietarioRepository.save(proprietario);
 		return new ResponseEntity<>(proprietario, HttpStatus.OK);
