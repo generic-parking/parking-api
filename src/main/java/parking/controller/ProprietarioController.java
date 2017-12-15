@@ -1,5 +1,6 @@
 package parking.controller;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -8,15 +9,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
+import parking.domain.GrupoCaronaDTO;
 import parking.domain.Proprietario;
 import parking.repository.ProprietarioRepository;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.List;
 
 /**
  * 
@@ -43,6 +42,15 @@ public class ProprietarioController {
 	@PreAuthorize("@proprietarioSecurityEvaluator.isOwner(#proprietario, authentication)")
 	@ApiOperation(value = "Atualiza os dados do Proprietário")
 	public ResponseEntity<Proprietario> update(@RequestBody(required = true) Proprietario proprietario) {
+
+		Proprietario grupo = proprietario.getProprietarioGrupo();
+		if (grupo != null && grupo.getId() != null) {
+			Proprietario grupoDb = proprietarioRepository.findOne(grupo.getId());
+			proprietario.setProprietarioGrupo(grupoDb);
+		}
+		
+		// TODO Validar regra de participação de sorteio e grupo
+
 		proprietarioRepository.save(proprietario);
 		return new ResponseEntity<>(proprietario, HttpStatus.OK);
 	}
@@ -59,5 +67,10 @@ public class ProprietarioController {
 	public ResponseEntity<Proprietario> get(@ApiIgnore Authentication authentication) {
 		return new ResponseEntity<>(proprietarioRepository.findByUsuarioIgnoreCase(authentication.getName()), HttpStatus.OK);
 	}
-	
+
+	@GetMapping("/grupos")
+	@ApiOperation("Retorna os grupos de carona")
+	public ResponseEntity<List<GrupoCaronaDTO>> get() {
+		return ResponseEntity.ok(proprietarioRepository.findGruposCarona());
+	}
 }
