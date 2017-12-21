@@ -6,7 +6,7 @@
 
     <changeSet id="20171127-1500" author="fabio">
         <addColumn tableName="proprietario">
-            <column name="oferece_carona" type="boolean" defaultValue="false"/>
+            <column name="oferece_carona" type="boolean" defaultValueBoolean="false"/>
         </addColumn>
         <addColumn tableName="proprietario">
             <column name="proprietario_grupo_id" type="int">
