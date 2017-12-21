@@ -19,6 +19,6 @@ public interface ProprietarioRepository
 
 	Proprietario findByUsuarioIgnoreCase(final String usuario);
 
-	@Query("select new parking.domain.GrupoCaronaDTO(p.id, p.nome) from Proprietario p where p.ofereceCarona = 'true'")
+	@Query("select new parking.domain.GrupoCaronaDTO(p.id, p.nome) from Proprietario p where p.ofereceCarona = true")
 	List<GrupoCaronaDTO> findGruposCarona();
 }
